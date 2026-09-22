@@ -64,6 +64,7 @@ def extractPackage(packagePath, outputPath=None, encoding='utf-8'):
     # Phase 1: unpack the archive into the temp dir, reporting progress per member.
     with tarsafe.open(name=packagePath, encoding=encoding) as upkg:
       members = upkg.getmembers()
+      for i, member in enumerate(members, 1): member.name = member.name.lstrip("/\\") # remove leading slashes
       total = len(members)
       def _trackedMembers():
         for i, member in enumerate(members, 1):
