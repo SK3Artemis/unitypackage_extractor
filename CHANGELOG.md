@@ -18,7 +18,7 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `os.path.join()` silently re-rooted the entries to the drive root — the extraction
   "succeeded" while writing nothing to the output folder. Leading slashes and
   backslashes are now stripped from member names before extraction.
-  Reported and fixed by SK_Artemis in
+  Reported and fixed by [@SK3Artemis](https://github.com/SK3Artemis) in
   [#1](https://github.com/To0TurNT/unitypackage_extractor/pull/1).
 
 ## [1.2.0] - 2026-06-27
