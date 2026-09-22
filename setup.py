@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='unitypackage_extractor',
-    version='1.2.0',
+    version='1.2.1',
     description='Extractor for .unitypackage files (fork of Cobertos/unitypackage_extractor)',
     long_description=open('README.md', 'r', encoding='utf-8').read(),
     long_description_content_type="text/markdown",

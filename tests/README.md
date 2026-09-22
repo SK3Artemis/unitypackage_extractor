@@ -14,6 +14,17 @@ Expected output of package:
 
 * `Assets/test.txt` - contents "testing"
 
+### `testLeadingSlashes.unitypackage`
+
+This one has a leading `/` on every tar entry (e.g. `/<guid>/asset.meta`), which makes
+the entries absolute. Unstripped, tarsafe raises `TarSafeException` on POSIX, and on
+Windows `os.path.join()` re-roots them to the drive root so nothing is extracted.
+
+Expected output of package:
+
+* `Assets/test.txt` - contents "testing"
+* `Assets/test.txt.meta`
+
 ### `testo.unitypackage`
 
 This one has unicode in one of the path names

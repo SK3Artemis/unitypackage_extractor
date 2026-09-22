@@ -7,6 +7,20 @@ This is a fork of [Cobertos/unitypackage_extractor](https://github.com/Cobertos/
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to
 follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-09-22
+
+### Fixed
+- **Packages whose tar entries have a leading `/`.** Some `.unitypackage` files are
+  archived with absolute member names (e.g. `/<guid>/asset.meta`). Left unstripped
+  these escape the scratch directory: on POSIX tarsafe aborted the run with
+  `TarSafeException: Attempted directory traversal for member: /<guid>/asset.meta`,
+  and on Windows tarsafe's check (which only tests `os.sep`) missed them, so
+  `os.path.join()` silently re-rooted the entries to the drive root — the extraction
+  "succeeded" while writing nothing to the output folder. Leading slashes and
+  backslashes are now stripped from member names before extraction.
+  Reported and fixed by SK_Artemis in
+  [#1](https://github.com/To0TurNT/unitypackage_extractor/pull/1).
+
 ## [1.2.0] - 2026-06-27
 
 Changes relative to upstream v1.1.0.
@@ -60,3 +74,4 @@ Changes relative to upstream v1.1.0.
   (Normal errors and Ctrl-C already clean up on their own.)
 
 [1.2.0]: https://github.com/To0TurNT/unitypackage_extractor/compare/v1.1.0...v1.2.0
+[1.2.1]: https://github.com/To0TurNT/unitypackage_extractor/compare/v1.2.0...v1.2.1

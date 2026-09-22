@@ -67,6 +67,24 @@ def test_packageExtractWithLeadingDots():
     assert os.path.isfile(f"{tmp}/Assets/test.txt")
     assert open(f"{tmp}/Assets/test.txt").read() == "testing"
 
+def test_packageExtractWithLeadingSlashes():
+  '''should be able to extract a unity package whose tar entries have a leading /'''
+  #arrange
+  with tempfile.TemporaryDirectory() as tmp:
+    #testLeadingSlashes.unitypackage - Same as test.unitypackage but every tar entry
+    #is named `/<guid>/...`. Left unstripped these are absolute, so tarsafe rejects them
+    #on POSIX and os.path.join() re-roots them to the drive root on Windows.
+
+    #act
+    print(f"Extracting to {tmp}...")
+    extractPackage("./tests/testLeadingSlashes.unitypackage", outputPath=tmp)
+
+    #assert
+    assert os.path.isdir(f"{tmp}/Assets")
+    assert os.path.isfile(f"{tmp}/Assets/test.txt")
+    assert open(f"{tmp}/Assets/test.txt").read() == "testing"
+    assert os.path.isfile(f"{tmp}/Assets/test.txt.meta")
+
 def test_packageExtractWithUnicodePath():
   '''should be able to extract a unity package that has a unicode pathname'''
   #arrange
